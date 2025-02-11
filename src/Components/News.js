@@ -1,4 +1,4 @@
-import React, {useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import NewsItem from './NewsItem'
 import Spinner from './Spinner'
 import PropTypes from 'prop-types'
@@ -18,7 +18,7 @@ const News = (props) => {
     const [totalResults, setTotalResults] = useState(0);
     document.title = `${capitalizeFirstLetter(props.category)} - NewsFoxy`
 
-    
+
 
     const UpdateNews = async () => {
         props.setProgress(30);
@@ -52,7 +52,7 @@ const News = (props) => {
     // }
 
     const fetchMoreData = async () => {
-        
+
         const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apiKey}&page=${page + 1}&pageSize=${props.pageSize}`;
         // setLoading(true);
         setPage(page + 1);
@@ -65,25 +65,38 @@ const News = (props) => {
 
     return (
         <div className="container">
-            <h1 className='text-center' style={{marginTop : "80px"}}>NewsFoxy - Top {capitalizeFirstLetter(props.category)} Headlines</h1>
+            <h1 className='text-center' style={{ marginTop: "80px" }}>
+                NewsFoxy - Top {capitalizeFirstLetter(props.category)} Headlines
+            </h1>
+
             {loading && <Spinner />}
+
             <InfiniteScroll
                 dataLength={articles.length}
                 next={fetchMoreData}
                 hasMore={articles.length !== totalResults}
-                loader={loading && <Spinner />}
-            ></InfiniteScroll>
-            <div className="container">
-                <div className="row my-4">
-                    {articles.map((element, index) => {
-                        return <div className="col-md-4" key={index}>
-                            <NewsItem title={element.title} description={element.description} imageUrl={element.urlToImage} newsUrl={element.url} author={element.author} date={element.publishedAt} source={element.source.name} />
-                        </div>
-                    })
-                    }
+                loader={<Spinner />}  // Always show a spinner when loading more news
+            >
+                <div className="container">
+                    <div className="row my-4">
+                        {articles.map((element, index) => (
+                            <div className="col-md-4" key={index}>
+                                <NewsItem
+                                    title={element.title}
+                                    description={element.description}
+                                    imageUrl={element.urlToImage}
+                                    newsUrl={element.url}
+                                    author={element.author}
+                                    date={element.publishedAt}
+                                    source={element.source.name}
+                                />
+                            </div>
+                        ))}
+                    </div>
                 </div>
-            </div>
+            </InfiniteScroll>
         </div>
+
     )
 }
 
