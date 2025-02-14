@@ -22,7 +22,7 @@ const News = (props) => {
 
     const UpdateNews = async () => {
         props.setProgress(30);
-        const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apiKey}&page=${page}&pageSize=${props.pageSize}`;
+        const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=836e4a7cf74641eabcc3ef74e7d481e6&page=${page}&pageSize=${props.pageSize}`;
         setLoading(true);
         let data = await fetch(url);
         props.setProgress(50);
@@ -53,7 +53,7 @@ const News = (props) => {
 
     const fetchMoreData = async () => {
 
-        const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apiKey}&page=${page + 1}&pageSize=${props.pageSize}`;
+        const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=836e4a7cf74641eabcc3ef74e7d481e6&page=${page + 1}&pageSize=${props.pageSize}`;
         // setLoading(true);
         setPage(page + 1);
         let data = await fetch(url);
@@ -96,7 +96,6 @@ const News = (props) => {
                 </div>
             </InfiniteScroll>
         </div>
-
     )
 }
 
